@@ -1,89 +1,97 @@
-# 💬 Real-Time Full-Stack Chat Application
+# Chat Application
 
-## Project Overview
+## Description
 
-This is a robust, full-stack application designed to demonstrate real-time, bi-directional communication using modern web technologies. The core of the application is a secure messaging platform built on the reliable **Spring Boot** framework and a responsive user interface powered by **React.js**. It implements the **WebSocket protocol** using **STOMP** and **SockJS** to deliver instant messages between users and across different chat channels.
+This is a real-time chat application built using **Spring Boot** for the back-end and **React.js** for the front-end. The app supports user authentication, public chatrooms, private messaging, and allows users to search and add other users by their username. It is designed for ease of use, scalability, and a seamless messaging experience.
 
-The platform supports essential chat functionality, including secure user login, a public community chat, and direct private messaging between individuals.
+## Features
 
-## ✨ Key Features
+- **User Authentication**: Register, log in, and log out securely.
+- **Public Chatroom**: Engage with all users in a public space.
+- **Private Messaging**: Send direct messages to specific users.
+- **User Search and Add**: Search for users by their username and add them to your contact list.
+- **Real-Time Communication**: Instant message delivery with WebSockets.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+- **Message History**: View past messages in chatrooms.
+- **User-Friendly Interface**: Clean, intuitive UI for easy navigation.
 
-* **Secure User Authentication:** Implements Registration, Login, and Logout for secure access.
-* **Real-Time Messaging:** Instant message delivery using WebSockets.
-* **Public Chatroom:** A shared space for group interaction among all online users.
-* **Private Messaging:** Send direct, one-on-one messages to specific users.
-* **User Management:** Ability to search for and add other users by their username.
-* **Message Persistence:** Messages and user data are stored and retrieved from the database.
-* **Responsive UI:** Optimized layout for seamless use across desktop and mobile devices.
+## Tech Stack
 
-## ⚙️ Technology Stack
+### Front-end
 
-| Category | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Backend** | **Spring Boot** | Core Java framework for API and WebSocket handling. |
-| **Real-Time** | **Spring WebSocket** | Server-side implementation of the WebSocket protocol. |
-| **Database** | **MySQL** & **Spring Data JPA** | Relational database persistence and ORM for user/message data. |
-| **Frontend** | **React.js** | Library for building the dynamic user interface. |
-| **Protocol** | **STOMP & SockJS** | Messaging protocol (STOMP) and reliable client connection (SockJS). |
-| **Styling** | **Tailwind CSS** | Utility-first framework for rapid and responsive styling. |
-| **Build Tool** | **Maven** | Dependency management and build automation for the Java backend. |
+- **React.js**: For building user interfaces.
+- **SockJS**: WebSocket client for real-time communication.
+- **STOMP**: Protocol for WebSocket messaging.
+- **React Router**: For client-side routing.
+- **Axios**: For HTTP requests.
+- **Tailwind CSS**: For styling.
 
-## 🚀 Getting Started
+### Back-end
 
-Follow these steps to set up and run the application locally.
+- **Spring Boot**: Java framework for web applications.
+- **Spring WebSocket**: WebSocket support in Spring.
+- **Spring Data JPA**: For database interactions.
+- **MySQL**: Relational database for storing user data.
+- **Lombok**: For reducing boilerplate code in Java.
+
+### Others
+
+- **Maven**: Build and dependency management tool.
+- **Postman**: For API testing and development.
+
+## How to Use
+
+1. **Register**: Create a new account with a unique username and email.
+2. **Login**: Enter your credentials to access the application.
+3. **Public Chat**: Join the public chatroom to engage in group conversations.
+4. **Private Messaging**: Click on a user's name to initiate a private chat.
+5. **Search Users**: Use the search feature to find other users by their username and add them to your contacts.
+
+## Setup Instructions
 
 ### Prerequisites
 
-Ensure you have the following installed on your machine:
+Ensure the following are installed on your system:
 
-* **Java JDK** (v17 or higher recommended)
-* **Maven**
-* **Node.js** and **npm** or **yarn**
-* **MySQL Server**
+- **Node.js**: [Download Node.js](https://nodejs.org/)
+- **Java JDK**: [Download JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- **Maven**: [Download Maven](https://maven.apache.org/download.cgi)
+- **MySQL**: [Download MySQL](https://dev.mysql.com/downloads/)
 
-### 1. Database Setup
+### Front-end Setup
 
-1.  Create a new MySQL database instance named `chat` (or another name, but ensure you update the configuration).
-2.  Open the `Back-end/src/main/resources/application.properties` file.
-3.  Update the database connection details with your credentials:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/chat-application.git
+   cd chat-application/frontend
 
-    ```properties
-    spring.datasource.url=jdbc:mysql://localhost:3306/chat
-    spring.datasource.username=your_mysql_username
-    spring.datasource.password=your_mysql_password
-    ```
+2. Install dependencies
+   npm install
 
-### 2. Back-end Setup
+3. Start the React development server:
+   npm run dev
+The app will be running at http://localhost:5173.
 
-1.  Navigate to the `Back-end` directory:
-    ```bash
-    cd Back-end
-    ```
-2.  Build and run the Spring Boot application using Maven:
-    ```bash
-    mvn clean install
-    mvn spring-boot:run
-    ```
-    The server should start running on `http://localhost:8080`.
+   Back-end Setup
 
-### 3. Front-end Setup
+1. Navigate to the back-end directory:
+   cd ../backend
+2. Configure MySQL database:
+   1. Create a MySQL database named chat.
+    2. Open src/main/resources/application.properties and update the database configurations:
 
-1.  Navigate to the `Front-end` directory:
-    ```bash
-    cd Front-end
-    ```
-2.  Install the necessary Node.js dependencies:
-    ```bash
-    npm install
-    # or yarn install
-    ```
-3.  Start the React development server:
-    ```bash
-    npm run dev
-    # or yarn dev
-    ```
-    The client application should be accessible at `http://localhost:5173` (or the port specified in your setup).
 
-## 🤝 Contribution
+ spring.datasource.url=jdbc:mysql://localhost:3306/chat
+ spring.datasource.username=your_mysql_username
+ spring.datasource.password=your_mysql_password
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](link-to-issues-page-if-you-have-one).
+ 3. Build and run the Spring Boot application:
+     mvn spring-boot:run
+    The back-end server will be running at http://localhost:8080.
+
+WebSocket Configuration
+Ensure the WebSocket connection is set up correctly in your React front-end (App.js or relevant file):
+
+const socket = new SockJS('http://localhost:8080/ws');
+const stompClient = Stomp.over(socket);
+
